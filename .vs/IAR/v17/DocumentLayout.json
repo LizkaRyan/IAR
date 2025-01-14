@@ -1,0 +1,123 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\ryrab\\Desktop\\Ryan\\Etudes\\S5\\ArchitectureLogiciel\\IAR\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{9206795A-3498-4256-B932-F86A114E048B}|IAR.csproj|c:\\users\\ryrab\\desktop\\ryan\\etudes\\s5\\architecturelogiciel\\iar\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9206795A-3498-4256-B932-F86A114E048B}|IAR.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9206795A-3498-4256-B932-F86A114E048B}|IAR.csproj|C:\\Users\\ryrab\\Desktop\\Ryan\\Etudes\\S5\\ArchitectureLogiciel\\IAR\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{9206795A-3498-4256-B932-F86A114E048B}|IAR.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9206795A-3498-4256-B932-F86A114E048B}|IAR.csproj|c:\\users\\ryrab\\desktop\\ryan\\etudes\\s5\\architecturelogiciel\\iar\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9206795A-3498-4256-B932-F86A114E048B}|IAR.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9206795A-3498-4256-B932-F86A114E048B}|IAR.csproj|c:\\users\\ryrab\\desktop\\ryan\\etudes\\s5\\architecturelogiciel\\iar\\movable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9206795A-3498-4256-B932-F86A114E048B}|IAR.csproj|solutionrelative:movable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9206795A-3498-4256-B932-F86A114E048B}|IAR.csproj|c:\\users\\ryrab\\desktop\\ryan\\etudes\\s5\\architecturelogiciel\\iar\\match.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9206795A-3498-4256-B932-F86A114E048B}|IAR.csproj|solutionrelative:match.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9206795A-3498-4256-B932-F86A114E048B}|IAR.csproj|c:\\users\\ryrab\\desktop\\ryan\\etudes\\s5\\architecturelogiciel\\iar\\team.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9206795A-3498-4256-B932-F86A114E048B}|IAR.csproj|solutionrelative:team.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Form1.cs",
+              "DocumentMoniker": "C:\\Users\\ryrab\\Desktop\\Ryan\\Etudes\\S5\\ArchitectureLogiciel\\IAR\\Form1.cs",
+              "RelativeDocumentMoniker": "Form1.cs",
+              "ToolTip": "C:\\Users\\ryrab\\Desktop\\Ryan\\Etudes\\S5\\ArchitectureLogiciel\\IAR\\Form1.cs",
+              "RelativeToolTip": "Form1.cs",
+              "ViewState": "AgIAACAAAAAAAAAAAAAYwDcAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-14T20:06:23.089Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\ryrab\\Desktop\\Ryan\\Etudes\\S5\\ArchitectureLogiciel\\IAR\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\ryrab\\Desktop\\Ryan\\Etudes\\S5\\ArchitectureLogiciel\\IAR\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAYwC0AAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-13T16:16:49.988Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Movable.cs",
+              "DocumentMoniker": "C:\\Users\\ryrab\\Desktop\\Ryan\\Etudes\\S5\\ArchitectureLogiciel\\IAR\\Movable.cs",
+              "RelativeDocumentMoniker": "Movable.cs",
+              "ToolTip": "C:\\Users\\ryrab\\Desktop\\Ryan\\Etudes\\S5\\ArchitectureLogiciel\\IAR\\Movable.cs",
+              "RelativeToolTip": "Movable.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAA1wB0AAAA+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-13T16:19:23.261Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Team.cs",
+              "DocumentMoniker": "C:\\Users\\ryrab\\Desktop\\Ryan\\Etudes\\S5\\ArchitectureLogiciel\\IAR\\Team.cs",
+              "RelativeDocumentMoniker": "Team.cs",
+              "ToolTip": "C:\\Users\\ryrab\\Desktop\\Ryan\\Etudes\\S5\\ArchitectureLogiciel\\IAR\\Team.cs",
+              "RelativeToolTip": "Team.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAiwBwAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-13T16:14:16.762Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Match.cs",
+              "DocumentMoniker": "C:\\Users\\ryrab\\Desktop\\Ryan\\Etudes\\S5\\ArchitectureLogiciel\\IAR\\Match.cs",
+              "RelativeDocumentMoniker": "Match.cs",
+              "ToolTip": "C:\\Users\\ryrab\\Desktop\\Ryan\\Etudes\\S5\\ArchitectureLogiciel\\IAR\\Match.cs",
+              "RelativeToolTip": "Match.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-13T16:13:26.307Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Form1.cs [Conception]",
+              "DocumentMoniker": "C:\\Users\\ryrab\\Desktop\\Ryan\\Etudes\\S5\\ArchitectureLogiciel\\IAR\\Form1.cs",
+              "RelativeDocumentMoniker": "Form1.cs",
+              "ToolTip": "C:\\Users\\ryrab\\Desktop\\Ryan\\Etudes\\S5\\ArchitectureLogiciel\\IAR\\Form1.cs [Conception]",
+              "RelativeToolTip": "Form1.cs [Conception]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-13T16:12:09.928Z",
+              "EditorCaption": " [Conception]"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
