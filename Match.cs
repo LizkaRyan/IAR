@@ -80,6 +80,13 @@ namespace IAR
             return this.team1;
         }
 
+        public Movable GetBeforeLastDefender()
+        {
+            Team teamLeadingTheBall = GetTeamLeadingTheBall();
+            Team opposingTeam = GetOpposingTeam(teamLeadingTheBall);
+            return opposingTeam.GetBeforeLastDefender();   
+        }
+
         public List<Movable> GetPlayerOffside()
         {
             Team teamLeadingTheBall = GetTeamLeadingTheBall();

@@ -35,14 +35,14 @@ namespace IAR
 
         private void buttonAnalyse_Click(object sender, EventArgs e)
         {
-            TraitementImage traitementImage = new TraitementImage(filePathTextBox.Text);
-            List<Movable> playersRed = traitementImage.GetPlayersRed();
-            List<Movable> playersBlue = traitementImage.GetPlayersBlue();
+            ImageTraitement traitementImage = new ImageTraitement(filePathTextBox.Text);
+            List<Movable> playersRed = traitementImage.GetRedPlayers();
+            List<Movable> playersBlue = traitementImage.GetBluePlayers();
             Team teamBlue = new Team(playersBlue, "Blue", Brushes.Blue);
             Team teamRed = new Team(playersRed, "Red", Brushes.Red);
             Movable ball = traitementImage.GetBlackBall();
             this.match = new Match(teamRed, teamBlue, ball);
-            traitementImage.drawImage(this.match.GetPlayerOffside());
+            traitementImage.drawImage(this.match);
             panel1.Invalidate();
         }
 
