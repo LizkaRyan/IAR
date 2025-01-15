@@ -107,6 +107,25 @@ namespace IAR.Image
             return new Movable(new Point((int)circles[0].Center.X, (int)circles[0].Center.Y),circles[0].Radius/2);
         }
 
+        public void drawImage(List<Movable> movables)
+        {
+            // Définir les paramètres du texte
+            string texte = "H"; // La lettre ou le texte à afficher
+            var couleur = new MCvScalar(0, 0, 0); // Couleur du texte (vert ici, en BGR)
+            double taillePolice = 1.0; // Taille du texte
+            int epaisseur = 2; // Épaisseur du texte
+            FontFace stylePolice = FontFace.HersheySimplex; // Style de la police
+
+            // Ajouter le texte à l'image
+            foreach (Movable movable in movables)
+            {
+                CvInvoke.PutText(image, texte, movable.backPoint, stylePolice, taillePolice, couleur, epaisseur);
+            }
+            // Afficher l'image
+            CvInvoke.Imshow("Image avec texte", image);
+            CvInvoke.WaitKey(0);
+        }
+
         static bool IsClose(Point p1, Point p2, double threshold)
         {
             double distance = Math.Sqrt(Math.Pow(p1.X - p2.X, 2) + Math.Pow(p1.Y - p2.Y, 2));

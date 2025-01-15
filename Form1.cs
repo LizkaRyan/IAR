@@ -23,7 +23,6 @@ namespace IAR
         private void button1_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Images PNG|*.png|Images JPG|*.jpg|Images JPEG|*.jpeg|Tous les fichiers|*.*"; // Filtrer les types de fichiers
             openFileDialog.Title = "S�lectionner un fichier";
 
             // Afficher la bo�te de dialogue et v�rifier si l'utilisateur a choisi un fichier
@@ -36,7 +35,7 @@ namespace IAR
 
         private void buttonAnalyse_Click(object sender, EventArgs e)
         {
-            TraitementImage traitementImage = new TraitementImage("C:\\Users\\ryrab\\Desktop\\Ryan\\Etudes\\S5\\Image_foot.png");
+            TraitementImage traitementImage = new TraitementImage(filePathTextBox.Text);
             List<Movable> playersRed = traitementImage.GetPlayersRed();
             List<Movable> playersBlue = traitementImage.GetPlayersBlue();
             Team teamBlue = new Team(playersBlue, "Blue", Brushes.Blue);
@@ -45,16 +44,16 @@ namespace IAR
             teamRed.attackingUp = false;
             Movable ball = traitementImage.GetBlackBall();
             this.match = new Match(teamRed, teamBlue, ball);
+            traitementImage.drawImage(this.match.GetPlayerOffside());
             panel1.Invalidate();
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
-            if (this.match!=null)
+            if (this.match != null)
             {
                 this.match.paint(e.Graphics);
             }
-            Console.WriteLine("Paint");
         }
     }
 }
