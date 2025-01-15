@@ -10,12 +10,14 @@ namespace IAR
     {
         public Point backPoint { get; set; }
         
+        public float radius { get; set; }
+        
         public List<Point> points { get; set; }
 
-        public Movable(List<Point> point) 
+        public Movable(Point point,float radius) 
         {
-            this.points = point;
-            this.backPoint = point[0];
+            this.backPoint = point;
+            this.radius = radius;
         }
 
         public void AddPoint(Point point)
@@ -24,11 +26,8 @@ namespace IAR
         }
 
         public void paint(Graphics g,Brush brush)
-        {
-            foreach (Point point in points)
-            {
-                g.FillEllipse(brush, point.X, point.Y, 10, 10);
-            }
+        { 
+            g.FillEllipse(brush, backPoint.X, backPoint.Y, radius*2, radius*2);
         }
     }
 }

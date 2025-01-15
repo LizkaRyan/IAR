@@ -41,6 +41,7 @@ namespace IAR
                     if (player.backPoint.Y>max)
                     {
                         lastDefender = player;
+                        max = player.backPoint.Y;
                     }
                 }
                 return lastDefender;
@@ -50,6 +51,7 @@ namespace IAR
             {
                 if (player.backPoint.Y < min)
                 {
+                    min = player.backPoint.Y;
                     lastDefender = player;
                 }
             }
@@ -69,6 +71,7 @@ namespace IAR
                     if (player.backPoint.Y > max && lastDefender != player)
                     {
                         beforeLastDefender = player;
+                        max=player.backPoint.Y;
                     }
                 }
                 return beforeLastDefender;
@@ -79,6 +82,7 @@ namespace IAR
                 if (player.backPoint.Y < min && lastDefender != player)
                 {
                     beforeLastDefender = player;
+                    min = player.backPoint.Y;
                 }
             }
             return beforeLastDefender;

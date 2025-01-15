@@ -71,7 +71,7 @@
             // 
             panel1.Location = new Point(12, 123);
             panel1.Name = "panel1";
-            panel1.Size = new Size(978, 604);
+            panel1.Size = new Size(978, 812);
             panel1.TabIndex = 3;
             panel1.Paint += panel1_Paint;
             // 
@@ -79,7 +79,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1288, 751);
+            ClientSize = new Size(1288, 947);
             Controls.Add(panel1);
             Controls.Add(filePathTextBox);
             Controls.Add(buttonAnalyse);

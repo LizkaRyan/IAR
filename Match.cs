@@ -24,6 +24,13 @@ namespace IAR
             team1.paint(g);
             team2.paint(g);
             ball.paint(g,Brushes.Black);
+            List<Movable> movables = GetPlayerOffside();
+            Font font = new Font("Arial", 15);
+            foreach (Movable movable in movables)
+            {
+                g.DrawString("H", font, Brushes.Black, movable.backPoint.X, movable.backPoint.Y);
+            }
+            font.Dispose();
         }
 
         public Team GetTeamLeadingTheBall()
