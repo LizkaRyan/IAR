@@ -39,9 +39,9 @@ namespace IAR
             List<Movable> playersRed = traitementImage.GetPlayersRed();
             List<Movable> playersBlue = traitementImage.GetPlayersBlue();
             Team teamBlue = new Team(playersBlue, "Blue", Brushes.Blue);
-            teamBlue.attackingUp = true;
+            teamBlue.attackingUp = false;
             Team teamRed = new Team(playersRed, "Red", Brushes.Red);
-            teamRed.attackingUp = false;
+            teamRed.attackingUp = true;
             Movable ball = traitementImage.GetBlackBall();
             this.match = new Match(teamRed, teamBlue, ball);
             traitementImage.drawImage(this.match.GetPlayerOffside());
