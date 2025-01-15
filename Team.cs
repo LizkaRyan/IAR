@@ -22,6 +22,17 @@ namespace IAR
             this.color = color;
         }
 
+        public double GetMoyenne()
+        {
+            double moyenne = 0;
+            foreach (Movable player in players)
+            {
+                moyenne += player.backPoint.Y;
+            }
+
+            return moyenne / players.Count;
+        }
+        
         public void paint(Graphics g)
         {
             for(int i = 0; i < this.players.Count; i++)

@@ -17,6 +17,21 @@ namespace IAR
             this.team1 = team1;
             this.team2 = team2;
             this.ball = ball;
+            this.setDirection();
+        }
+        
+        protected void setDirection()
+        {
+            if (team1.GetMoyenne()<team2.GetMoyenne())
+            {
+                team1.attackingUp = false;
+                team2.attackingUp = true;
+            }
+            else
+            {
+                team2.attackingUp = false;
+                team1.attackingUp = true;
+            }
         }
 
         public void paint(Graphics g)
