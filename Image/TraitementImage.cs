@@ -58,7 +58,7 @@ namespace IAR.Image
 
             // Appliquer un flou pour réduire le bruit
             Mat blurred = new Mat();
-            CvInvoke.GaussianBlur(redMask, blurred, new Size(7, 7), 2);
+            CvInvoke.GaussianBlur(redMask, blurred, new Size(9, 9), 2);
 
             // Détection des cercles
             CircleF[] circles = CvInvoke.HoughCircles(
@@ -96,7 +96,7 @@ namespace IAR.Image
 
             // Appliquer un flou pour réduire le bruit
             Mat blurred = new Mat();
-            CvInvoke.GaussianBlur(mask1, blurred, new Size(7, 7), 2);
+            CvInvoke.GaussianBlur(mask1, blurred, new Size(9, 9), 2);
 
             // Détection des cercles
             CircleF[] circles = CvInvoke.HoughCircles(
