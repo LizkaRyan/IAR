@@ -10,7 +10,7 @@ namespace IAR
     {
         Team team1 { get; set; }
         Team team2 { get; set; }
-        Movable ball { get; set; }
+        public Movable ball { get; set; }
 
         public Match(Team team1,Team team2,Movable ball)
         {
@@ -24,13 +24,13 @@ namespace IAR
         {
             if (team1.GetMoyenne()<team2.GetMoyenne())
             {
-                team1.attackingUp = false;
-                team2.attackingUp = true;
+                team1.setAttackingUp(false);
+                team2.setAttackingUp(true);
             }
             else
             {
-                team2.attackingUp = false;
-                team1.attackingUp = true;
+                team2.setAttackingUp(false);
+                team1.setAttackingUp(true);
             }
         }
 
@@ -43,7 +43,7 @@ namespace IAR
             Font font = new Font("Arial", 15);
             foreach (Movable movable in movables)
             {
-                g.DrawString("H", font, Brushes.Black, movable.backPoint.X, movable.backPoint.Y);
+                g.DrawString("H", font, Brushes.Black, movable.centerPoint.X, movable.centerPoint.Y);
             }
             font.Dispose();
         }
@@ -53,7 +53,7 @@ namespace IAR
             double closest = 9999999999d;
             foreach (Movable player1 in team1.players)
             {
-                double distance = Math.Sqrt(Math.Pow(ball.backPoint.X - player1.backPoint.X, 2) + Math.Pow(ball.backPoint.Y - player1.backPoint.Y, 2));
+                double distance = Math.Sqrt(Math.Pow(ball.centerPoint.X - player1.centerPoint.X, 2) + Math.Pow(ball.centerPoint.Y - player1.centerPoint.Y, 2));
                 if (distance < closest)
                 {
                     closest = distance;
@@ -61,7 +61,7 @@ namespace IAR
             }
             foreach (Movable player2 in team2.players)
             {
-                double distance = Math.Sqrt(Math.Pow(ball.backPoint.X - player2.backPoint.X, 2) + Math.Pow(ball.backPoint.Y - player2.backPoint.Y, 2));
+                double distance = Math.Sqrt(Math.Pow(ball.centerPoint.X - player2.centerPoint.X, 2) + Math.Pow(ball.centerPoint.Y - player2.centerPoint.Y, 2));
                 if (distance < closest)
                 {
                     closest = distance;
@@ -95,16 +95,16 @@ namespace IAR
             List<Movable> players = new List<Movable>();
             foreach (Movable player in teamLeadingTheBall.players)
             {
-                if (teamLeadingTheBall.attackingUp)
+                if (teamLeadingTheBall.GetAttackingUp())
                 {
-                    if (player.backPoint.Y < beforeLastDefender.backPoint.Y && player.backPoint.Y < ball.backPoint.Y)
+                    if (player.GetFrontPoint().Y < beforeLastDefender.GetBackPoint().Y && player.GetFrontPoint().Y < ball.centerPoint.Y)
                     {
                         players.Add(player);
                     }
                 }
                 else
                 {
-                    if (player.backPoint.Y > beforeLastDefender.backPoint.Y && player.backPoint.Y > ball.backPoint.Y)
+                    if (player.GetFrontPoint().Y > beforeLastDefender.GetBackPoint().Y && player.GetFrontPoint().Y > ball.centerPoint.Y)
                     {
                         players.Add(player);
                     }

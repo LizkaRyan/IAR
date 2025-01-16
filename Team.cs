@@ -13,7 +13,7 @@ namespace IAR
         Brush color { get; set; }
         public string teamName { get; set; }
 
-        public Boolean attackingUp;
+        protected Boolean attackingUp;
 
         public Team(List<Movable> joueurs,string teamName,Brush color) 
         {
@@ -22,12 +22,26 @@ namespace IAR
             this.color = color;
         }
 
+        public Boolean GetAttackingUp()
+        {
+            return this.attackingUp;
+        }
+
+        public void setAttackingUp(Boolean attackingUp)
+        {
+            this.attackingUp = attackingUp;
+            foreach (var player in players)
+            {
+                player.SetAttackingUp(attackingUp);
+            }
+        }
+
         public double GetMoyenne()
         {
             double moyenne = 0;
             foreach (Movable player in players)
             {
-                moyenne += player.backPoint.Y;
+                moyenne += player.centerPoint.Y;
             }
 
             return moyenne / players.Count;
@@ -49,10 +63,10 @@ namespace IAR
                 double max = 0;
                 foreach (Movable player in this.players)
                 {
-                    if (player.backPoint.Y>max)
+                    if (player.centerPoint.Y>max)
                     {
                         lastDefender = player;
-                        max = player.backPoint.Y;
+                        max = player.centerPoint.Y;
                     }
                 }
                 return lastDefender;
@@ -60,9 +74,9 @@ namespace IAR
             double min = 999999999d;
             foreach (Movable player in players)
             {
-                if (player.backPoint.Y < min)
+                if (player.centerPoint.Y < min)
                 {
-                    min = player.backPoint.Y;
+                    min = player.centerPoint.Y;
                     lastDefender = player;
                 }
             }
@@ -79,10 +93,10 @@ namespace IAR
                 double max = 0;
                 foreach (Movable player in players)
                 {
-                    if (player.backPoint.Y > max && lastDefender != player)
+                    if (player.centerPoint.Y > max && lastDefender != player)
                     {
                         beforeLastDefender = player;
-                        max=player.backPoint.Y;
+                        max=player.centerPoint.Y;
                     }
                 }
                 return beforeLastDefender;
@@ -90,13 +104,35 @@ namespace IAR
             double min = 999999999d;
             foreach (Movable player in players)
             {
-                if (player.backPoint.Y < min && lastDefender != player)
+                if (player.centerPoint.Y < min && lastDefender != player)
                 {
                     beforeLastDefender = player;
-                    min = player.backPoint.Y;
+                    min = player.centerPoint.Y;
                 }
             }
             return beforeLastDefender;
+        }
+
+        public List<Movable> GetPLayerInFrontOfTheBall(Movable ball)
+        {
+            List<Movable> mety = new List<Movable>();
+            foreach (var player in players)
+            {
+                if (this.attackingUp)
+                {
+                    if (player.GetFrontPoint().Y < ball.centerPoint.Y)
+                    {
+                        mety.Add(player);
+                    }
+                    continue;
+                }
+                if (player.GetFrontPoint().Y > ball.centerPoint.Y)
+                {
+                    mety.Add(player);
+                }
+            }
+
+            return mety;
         }
     }
 }

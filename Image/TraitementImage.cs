@@ -132,7 +132,7 @@ namespace IAR.Image
             // Ajouter le texte à l'image
             foreach (Movable movable in movables)
             {
-                CvInvoke.PutText(image, texte, movable.backPoint, stylePolice, taillePolice, couleur, epaisseur);
+                CvInvoke.PutText(image, texte, movable.centerPoint, stylePolice, taillePolice, couleur, epaisseur);
             }
             // Afficher l'image
             CvInvoke.Imshow("Image avec texte", image);

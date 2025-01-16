@@ -112,12 +112,21 @@ public class ImageTraitement
 
         List<Movable> movables = match.GetPlayerOffside();
         Movable lastDefender = match.GetBeforeLastDefender();
-        CvInvoke.Line(image, new Point(0,lastDefender.backPoint.Y), new Point(1000,lastDefender.backPoint.Y), new MCvScalar(0, 0, 255), 2);
+        List<Movable> metys = match.GetTeamLeadingTheBall().GetPLayerInFrontOfTheBall(match.ball);
+        CvInvoke.Line(image, new Point(0,lastDefender.GetBackPoint().Y), new Point(1000,lastDefender.GetBackPoint().Y), new MCvScalar(0, 0, 255), 2);
 
         // Ajouter le texte à l'image
         foreach (Movable movable in movables)
         {
-            CvInvoke.PutText(image, texte, movable.backPoint, stylePolice, taillePolice, couleur, epaisseur);
+            CvInvoke.PutText(image, texte, movable.centerPoint, stylePolice, taillePolice, couleur, epaisseur);
+        }
+
+        foreach (Movable mety in metys)
+        {
+            if (!movables.Contains(mety))
+            {
+                CvInvoke.PutText(image, "M", mety.centerPoint, stylePolice, taillePolice, couleur, epaisseur);
+            }
         }
         // CvInvoke.Transpose(image, image);
         
