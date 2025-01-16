@@ -13,7 +13,7 @@ namespace IAR
         Brush color { get; set; }
         public string teamName { get; set; }
 
-        protected Boolean attackingUp;
+        protected Boolean attackingUp=false;
 
         public Team(List<Movable> joueurs,string teamName,Brush color) 
         {

@@ -22,16 +22,45 @@ namespace IAR
         
         protected void setDirection()
         {
-            if (team1.GetMoyenne()<team2.GetMoyenne())
+            Movable minY = null;
+            Movable maxY = null;
+            int valueMinY = 9999999;
+            int valueMaxY = 0;
+            foreach (var player in team1.players)
+            {
+                if (valueMinY>player.centerPoint.Y)
+                {
+                    valueMinY = player.centerPoint.Y;
+                    minY = player;
+                }
+                if (valueMaxY<player.centerPoint.Y)
+                {
+                    valueMaxY = player.centerPoint.Y;
+                    maxY = player;
+                }
+            }
+            foreach (var player in team2.players)
+            {
+                if (valueMinY>player.centerPoint.Y)
+                {
+                    valueMinY = player.centerPoint.Y;
+                    minY = player;
+                }
+                if (valueMaxY<player.centerPoint.Y)
+                {
+                    valueMaxY = player.centerPoint.Y;
+                    maxY = player;
+                }
+            }
+
+            if (team1.players.Contains(minY))
             {
                 team1.setAttackingUp(false);
                 team2.setAttackingUp(true);
+                return;
             }
-            else
-            {
-                team2.setAttackingUp(false);
-                team1.setAttackingUp(true);
-            }
+            team1.setAttackingUp(true);
+            team2.setAttackingUp(false);
         }
 
         public void paint(Graphics g)
