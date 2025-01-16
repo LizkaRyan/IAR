@@ -82,7 +82,7 @@
             label1.Name = "label1";
             label1.Size = new Size(89, 47);
             label1.TabIndex = 3;
-            label1.Text = "IAR";
+            label1.Text = "IAR⚽";
             // 
             // label2
             // 

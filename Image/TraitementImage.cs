@@ -116,7 +116,7 @@ namespace IAR.Image
                 movables.Add(new Movable(new Point((int)circle.Center.X, (int)circle.Center.Y), circle.Radius));
             }
 
-            return movables[0];
+            return movables[3];
         }
 
         public void drawImage(Match match)
@@ -132,7 +132,7 @@ namespace IAR.Image
             Movable lastDefender = match.GetBeforeLastDefender();
             List<Movable> metys = match.GetTeamLeadingTheBall().GetPLayerInFrontOfTheBall(match.ball);
             CvInvoke.Line(image, new Point(0, lastDefender.GetBackPoint().Y),
-                new Point(1000, lastDefender.GetBackPoint().Y), new MCvScalar(0, 0, 255), 2);
+                new Point(image.Width, lastDefender.GetBackPoint().Y), new MCvScalar(0, 0, 255), 2);
 
             // Ajouter le texte à l'image
             foreach (Movable movable in movables)
@@ -144,6 +144,7 @@ namespace IAR.Image
             {
                 if (!movables.Contains(mety))
                 {
+                    CvInvoke.ArrowedLine(image,match.ball.centerPoint,mety.centerPoint, new MCvScalar(0, 0, 0), 2);
                     CvInvoke.PutText(image, "M", mety.centerPoint, stylePolice, taillePolice, couleur, epaisseur);
                 }
             }

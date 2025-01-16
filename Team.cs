@@ -36,6 +36,22 @@ namespace IAR
             }
         }
 
+        public Movable GetPlayerNearestBall(Movable ball)
+        {
+            double min = 999999;
+            Movable nearest = null;
+            foreach (Movable player in players)
+            {
+                double distance = Math.Sqrt(Math.Pow(ball.centerPoint.X - player.centerPoint.X, 2) + Math.Pow(ball.centerPoint.Y - player.centerPoint.Y, 2));
+                if (distance < min)
+                {
+                    nearest = player;
+                    min = distance;
+                }
+            }
+            return nearest;
+        }
+
         public double GetMoyenne()
         {
             double moyenne = 0;

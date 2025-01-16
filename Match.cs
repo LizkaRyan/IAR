@@ -122,18 +122,19 @@ namespace IAR
             Team opposingTeam = GetOpposingTeam(teamLeadingTheBall);
             Movable beforeLastDefender = opposingTeam.GetBeforeLastDefender();
             List<Movable> players = new List<Movable>();
+            Movable playerLeadingBall = teamLeadingTheBall.GetPlayerNearestBall(this.ball);
             foreach (Movable player in teamLeadingTheBall.players)
             {
                 if (teamLeadingTheBall.GetAttackingUp())
                 {
-                    if (player.GetFrontPoint().Y < beforeLastDefender.GetBackPoint().Y && player.GetFrontPoint().Y < ball.centerPoint.Y)
+                    if (playerLeadingBall != player && player.GetFrontPoint().Y < beforeLastDefender.GetBackPoint().Y && player.GetFrontPoint().Y < ball.centerPoint.Y)
                     {
                         players.Add(player);
                     }
                 }
                 else
                 {
-                    if (player.GetFrontPoint().Y > beforeLastDefender.GetBackPoint().Y && player.GetFrontPoint().Y > ball.centerPoint.Y)
+                    if (playerLeadingBall != player && player.GetFrontPoint().Y > beforeLastDefender.GetBackPoint().Y && player.GetFrontPoint().Y > ball.centerPoint.Y)
                     {
                         players.Add(player);
                     }

@@ -104,7 +104,7 @@ public class ImageTraitement
     public void drawImage(Match match)
     {
         // Définir les paramètres du texte
-        string texte = "H"; // La lettre ou le texte à afficher
+        string texte = "HJ"; // La lettre ou le texte à afficher
         var couleur = new MCvScalar(0, 0, 0); // Couleur du texte (vert ici, en BGR)
         double taillePolice = 1.0; // Taille du texte
         int epaisseur = 2; // Épaisseur du texte
@@ -113,7 +113,7 @@ public class ImageTraitement
         List<Movable> movables = match.GetPlayerOffside();
         Movable lastDefender = match.GetBeforeLastDefender();
         List<Movable> metys = match.GetTeamLeadingTheBall().GetPLayerInFrontOfTheBall(match.ball);
-        CvInvoke.Line(image, new Point(0,lastDefender.GetBackPoint().Y), new Point(3000,lastDefender.GetBackPoint().Y), new MCvScalar(0, 0, 255), 2);
+        CvInvoke.Line(image, new Point(0,lastDefender.GetBackPoint().Y), new Point(image.Width,lastDefender.GetBackPoint().Y), new MCvScalar(0, 0, 255), 2);
 
         // Ajouter le texte à l'image
         foreach (Movable movable in movables)
@@ -125,7 +125,8 @@ public class ImageTraitement
         {
             if (!movables.Contains(mety))
             {
-                CvInvoke.PutText(image, "M", mety.centerPoint, stylePolice, taillePolice, couleur, epaisseur);
+                CvInvoke.ArrowedLine(image,  match.ball.centerPoint,mety.centerPoint, new MCvScalar(0, 0, 0), 2);
+                CvInvoke.PutText(image, "N", mety.centerPoint, stylePolice, taillePolice, couleur, epaisseur);
             }
         }
         // CvInvoke.Transpose(image, image);
