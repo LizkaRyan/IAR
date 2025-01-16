@@ -51,3 +51,4 @@ C:\Users\ryrab\Desktop\Ryan\Etudes\S5\ArchitectureLogiciel\IAR\bin\Debug\net8.0-
 C:\Users\ryrab\Desktop\Ryan\Etudes\S5\ArchitectureLogiciel\IAR\bin\Debug\net8.0-windows\runtimes\win-x86\native\vcruntime140.dll
 C:\Users\ryrab\Desktop\Ryan\Etudes\S5\ArchitectureLogiciel\IAR\bin\Debug\net8.0-windows\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
 C:\Users\ryrab\Desktop\Ryan\Etudes\S5\ArchitectureLogiciel\IAR\obj\Debug\net8.0-windows\IAR.csproj.Up2Date
+C:\Users\ryrab\Desktop\Ryan\Etudes\S5\ArchitectureLogiciel\IAR\obj\Debug\net8.0-windows\IAR.Properties.Resources.resources

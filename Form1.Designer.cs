@@ -43,22 +43,28 @@
             // 
             // button1
             // 
+            button1.BackColor = SystemColors.Highlight;
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.ForeColor = SystemColors.ButtonFace;
             button1.Location = new Point(264, 284);
             button1.Name = "button1";
             button1.Size = new Size(127, 29);
             button1.TabIndex = 0;
             button1.Text = "Parcourir fichier";
-            button1.UseVisualStyleBackColor = true;
+            button1.UseVisualStyleBackColor = false;
             button1.Click += button1_Click;
             // 
             // buttonAnalyse
             // 
+            buttonAnalyse.BackColor = SystemColors.Highlight;
+            buttonAnalyse.FlatStyle = FlatStyle.Flat;
+            buttonAnalyse.ForeColor = SystemColors.ButtonFace;
             buttonAnalyse.Location = new Point(533, 284);
             buttonAnalyse.Name = "buttonAnalyse";
             buttonAnalyse.Size = new Size(94, 29);
             buttonAnalyse.TabIndex = 1;
             buttonAnalyse.Text = "Analyser";
-            buttonAnalyse.UseVisualStyleBackColor = true;
+            buttonAnalyse.UseVisualStyleBackColor = false;
             buttonAnalyse.Click += buttonAnalyse_Click;
             // 
             // filePathTextBox
