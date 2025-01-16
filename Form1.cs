@@ -43,7 +43,6 @@ namespace IAR
             Movable ball = traitementImage.GetBlackBall();
             this.match = new Match(teamRed, teamBlue, ball);
             traitementImage.drawImage(this.match);
-            panel1.Invalidate();
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -52,6 +51,11 @@ namespace IAR
             {
                 this.match.paint(e.Graphics);
             }
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
