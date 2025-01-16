@@ -13,7 +13,7 @@ namespace IAR.Image
             image = CvInvoke.Imread(imagePath);
         }
 
-        public List<Movable> GetPlayersRed()
+        public List<Movable> GetRedPlayers()
         {
             // Définir la plage de rouge en HSV
             // Remarque : Le rouge est à deux plages dans HSV (autour de 0° et 360°)
@@ -27,7 +27,7 @@ namespace IAR.Image
             return GetAllPixel(lowerRed1, upperRed1, lowerRed2, upperRed2);
         }
 
-        public List<Movable> GetPlayersBlue()
+        public List<Movable> GetBluePlayers()
         {
             // Définir la plage de rouge en HSV
             // Remarque : Le rouge est à deux plages dans HSV (autour de 0° et 360°)// Plage basse et haute pour le bleu
@@ -36,10 +36,10 @@ namespace IAR.Image
 
             var lowerBlue2 = new ScalarArray(new MCvScalar(100, 120, 70)); // Bleu bas - plage 2
             var upperBlue2 = new ScalarArray(new MCvScalar(140, 255, 255)); // Bleu haut - plage 2
-            
+
             return GetAllPixel(lowerBlue1, upperBlue1, lowerBlue2, upperBlue2);
         }
-        
+
         public List<Movable> GetAllPixel(ScalarArray lower1, ScalarArray upper1, ScalarArray lower2, ScalarArray upper2)
         {
             // Convertir en HSV
@@ -83,8 +83,8 @@ namespace IAR.Image
 
         public Movable GetBlackBall()
         {
-            ScalarArray lower = new ScalarArray(new MCvScalar(0,0,0));
-            ScalarArray upper = new ScalarArray(new MCvScalar(180,50,50));
+            ScalarArray lower = new ScalarArray(new MCvScalar(0, 0, 0));
+            ScalarArray upper = new ScalarArray(new MCvScalar(180, 50, 50));
 
             // Convertir en HSV
             Mat hsvImage = new Mat();
@@ -117,10 +117,9 @@ namespace IAR.Image
             }
 
             return movables[0];
-            
         }
 
-        public void drawImage(List<Movable> movables)
+        public void drawImage(Match match)
         {
             // Définir les paramètres du texte
             string texte = "H"; // La lettre ou le texte à afficher
@@ -129,11 +128,30 @@ namespace IAR.Image
             int epaisseur = 2; // Épaisseur du texte
             FontFace stylePolice = FontFace.HersheySimplex; // Style de la police
 
+            List<Movable> movables = match.GetPlayerOffside();
+            Movable lastDefender = match.GetBeforeLastDefender();
+            List<Movable> metys = match.GetTeamLeadingTheBall().GetPLayerInFrontOfTheBall(match.ball);
+            CvInvoke.Line(image, new Point(0, lastDefender.GetBackPoint().Y),
+                new Point(1000, lastDefender.GetBackPoint().Y), new MCvScalar(0, 0, 255), 2);
+
             // Ajouter le texte à l'image
             foreach (Movable movable in movables)
             {
                 CvInvoke.PutText(image, texte, movable.centerPoint, stylePolice, taillePolice, couleur, epaisseur);
             }
+
+            foreach (Movable mety in metys)
+            {
+                if (!movables.Contains(mety))
+                {
+                    CvInvoke.PutText(image, "M", mety.centerPoint, stylePolice, taillePolice, couleur, epaisseur);
+                }
+            }
+            // CvInvoke.Transpose(image, image);
+
+            // On flip si c'est rotation degre anti-horaire
+            // CvInvoke.Flip(transposedImage, rotatedImage, Emgu.CV.CvEnum.FlipType.Horizontal);
+
             // Afficher l'image
             CvInvoke.Imshow("Image avec texte", image);
             CvInvoke.WaitKey(0);

@@ -36,6 +36,7 @@ namespace IAR
         private void buttonAnalyse_Click(object sender, EventArgs e)
         {
             ImageTraitement traitementImage = new ImageTraitement(filePathTextBox.Text);
+            // TraitementImage traitementImage = new TraitementImage(filePathTextBox.Text);
             List<Movable> playersRed = traitementImage.GetRedPlayers();
             List<Movable> playersBlue = traitementImage.GetBluePlayers();
             Team teamBlue = new Team(playersBlue, "Blue", Brushes.Blue);
