@@ -3,7 +3,10 @@ using Emgu.CV;
 using Emgu.CV.CvEnum;
 using Emgu.CV.Structure;
 using Emgu.CV.Util;
+using IAR.Database;
 using IAR.Image;
+using Npgsql;
+using Console = System.Console;
 
 namespace IAR
 {
@@ -17,9 +20,13 @@ namespace IAR
         {
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
-            
-            ApplicationConfiguration.Initialize();
-            Application.Run(new Form1());
+            NpgsqlConnection connection = DatabaseManager.GetConnection();
+            connection.Open();
+            var list=DatabaseManager.Execute("select * from produit",connection);
+            connection.Close();
+            Console.WriteLine(list[0]["produit"]);
+            // ApplicationConfiguration.Initialize();
+            // Application.Run(new Form1());
         }
     }
 }

@@ -11,6 +11,7 @@
   <ItemGroup>
     <PackageReference Include="Emgu.CV" Version="4.10.0.5680" />
     <PackageReference Include="Emgu.CV.runtime.windows" Version="4.10.0.5680" />
+    <PackageReference Include="Npgsql" Version="9.0.2" />
   </ItemGroup>
 
   <ItemGroup>

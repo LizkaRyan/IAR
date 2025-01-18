@@ -57,6 +57,10 @@
             "Emgu.CV.runtime.windows": {
               "target": "Package",
               "version": "[4.10.0.5680, )"
+            },
+            "Npgsql": {
+              "target": "Package",
+              "version": "[9.0.2, )"
             }
           },
           "imports": [
