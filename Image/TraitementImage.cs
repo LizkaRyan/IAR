@@ -131,7 +131,7 @@ namespace IAR.Image
 
             List<Movable> movables = match.GetPlayerOffside();
             Movable lastDefender = match.GetBeforeLastDefender();
-            List<Movable> metys = match.GetTeamLeadingTheBall().GetPLayerInFrontOfTheBall(match.ball);
+            List<Movable> metys = match.GetTeamLeadingTheBall().GetPLayerInFrontOfTheBall(match.Ball);
             CvInvoke.Line(image, new Point(0, lastDefender.GetBackPoint().Y),
                 new Point(image.Width, lastDefender.GetBackPoint().Y), new MCvScalar(0, 0, 255), 2);
 
@@ -145,7 +145,7 @@ namespace IAR.Image
             {
                 if (!movables.Contains(mety))
                 {
-                    CvInvoke.ArrowedLine(image,match.ball.centerPoint,mety.centerPoint, new MCvScalar(0, 0, 0), 2);
+                    CvInvoke.ArrowedLine(image,match.Ball.centerPoint,mety.centerPoint, new MCvScalar(0, 0, 0), 2);
                     CvInvoke.PutText(image, "M", mety.centerPoint, stylePolice, taillePolice, couleur, epaisseur);
                 }
             }

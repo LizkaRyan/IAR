@@ -25,9 +25,9 @@ namespace IAR
             // var list=DatabaseManager.Get("select * from produit",connection);
             // connection.Close();
             // Console.WriteLine(list[0]["produit"]);
-            DatabaseManager.Execute("Insert into client(nom) values('Malko')");
-            // ApplicationConfiguration.Initialize();
-            // Application.Run(new Form1());
+            // DatabaseManager.Execute("Insert into client(nom) values('Malko')");
+            ApplicationConfiguration.Initialize();
+            Application.Run(new Form1());
         }
     }
 }

@@ -5,7 +5,8 @@ namespace IAR.Game
 {
     public class Team
     {
-        public List<Movable> players { get; set; }
+        public List<Movable> players;
+        
         Brush color { get; set; }
         public string teamName { get; set; }
         
@@ -27,7 +28,12 @@ namespace IAR.Game
             this.but = but;
         }
 
-        protected Boolean attackingUp=false;
+        protected Boolean _attackingUp;
+
+        public Boolean AttackingUp
+        {
+            get;
+        }
 
         public Team(List<Movable> joueurs,string teamName,Brush color) 
         {
@@ -36,19 +42,14 @@ namespace IAR.Game
             this.color = color;
         }
 
-        public Boolean GetAttackingUp()
-        {
-            return this.attackingUp;
-        }
-
         public void setAttackingUp(Boolean attackingUp,List<LineSegment2D> buts)
         {
-            this.attackingUp = attackingUp;
+            this._attackingUp = attackingUp;
             foreach (var player in players)
             {
                 player.SetAttackingUp(attackingUp);
             }
-            if (this.attackingUp)
+            if (this._attackingUp)
             {
                 buts = buts.OrderByDescending(but => but.P1.Y).ToList();
             }
@@ -62,7 +63,7 @@ namespace IAR.Game
         public Boolean LostAPoint(Movable ball)
         {
             Boolean behindTheBut = false;
-            if (attackingUp)
+            if (_attackingUp)
             {
                 behindTheBut = ball.centerPoint.Y > but.P1.Y;
             }
@@ -114,7 +115,7 @@ namespace IAR.Game
         public Movable GetLastDefender()
         {
             Movable lastDefender=null;
-            if (attackingUp)
+            if (_attackingUp)
             {
                 double max = 0;
                 foreach (Movable player in this.players)
@@ -143,8 +144,7 @@ namespace IAR.Game
         {
             Movable lastDefender = this.GetLastDefender();
             Movable beforeLastDefender=null;
-            Debug.WriteLine(attackingUp);
-            if (attackingUp)
+            if (_attackingUp)
             {
                 double max = 0;
                 foreach (Movable player in players)
@@ -174,7 +174,7 @@ namespace IAR.Game
             List<Movable> mety = new List<Movable>();
             foreach (var player in players)
             {
-                if (this.attackingUp)
+                if (this._attackingUp)
                 {
                     if (player.GetFrontPoint().Y < ball.centerPoint.Y)
                     {

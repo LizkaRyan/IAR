@@ -11,6 +11,22 @@ public class ImageTraitement
     private Mat image;
     public ImageTraitement(string imagePath)
     {
+        setImagePath(imagePath);
+    }
+
+    public Match GenerateMatch()
+    {
+        List<Movable> playersRed = this.GetRedPlayers();
+        List<Movable> playersBlue = this.GetBluePlayers();
+        Team teamBlue = new Team(playersBlue, "Blue", Brushes.Blue);
+        Team teamRed = new Team(playersRed, "Red", Brushes.Red);
+        Movable ball = this.GetBlackBall();
+        List<LineSegment2D> lines = this.GetLines();
+        return new Match(teamRed, teamBlue, ball, lines);
+    }
+
+    public void setImagePath(string imagePath)
+    {
         image = CvInvoke.Imread(imagePath);
     }
 
@@ -138,7 +154,7 @@ public class ImageTraitement
         return horizontalLines;
     }
     
-    public void drawImage(Match match,List<LineSegment2D> lines)
+    public void drawImage(Match match)
     {
         // Définir les paramètres du texte
         string texte = "HJ"; // La lettre ou le texte à afficher
@@ -146,15 +162,10 @@ public class ImageTraitement
         double taillePolice = 1.0; // Taille du texte
         int epaisseur = 2; // Épaisseur du texte
         FontFace stylePolice = FontFace.HersheySimplex; // Style de la police
-
-        foreach (LineSegment2D line in lines)
-        {
-            CvInvoke.ArrowedLine(image,  line.P1,line.P2, new MCvScalar(0, 0, 0), 2);
-        }
         
         List<Movable> movables = match.GetPlayerOffside();
         Movable lastDefender = match.GetBeforeLastDefender();
-        List<Movable> metys = match.GetTeamLeadingTheBall().GetPLayerInFrontOfTheBall(match.ball);
+        List<Movable> metys = match.GetTeamLeadingTheBall().GetPLayerInFrontOfTheBall(match.Ball);
         CvInvoke.Line(image, new Point(0,lastDefender.GetBackPoint().Y), new Point(image.Width,lastDefender.GetBackPoint().Y), new MCvScalar(0, 0, 255), 2);
 
         // Ajouter le texte à l'image
@@ -167,7 +178,7 @@ public class ImageTraitement
         {
             if (!movables.Contains(mety))
             {
-                CvInvoke.ArrowedLine(image,  match.ball.centerPoint,mety.centerPoint, new MCvScalar(0, 0, 0), 2);
+                CvInvoke.ArrowedLine(image,  match.Ball.centerPoint,mety.centerPoint, new MCvScalar(0, 0, 0), 2);
                 CvInvoke.PutText(image, "N", mety.centerPoint, stylePolice, taillePolice, couleur, epaisseur);
             }
         }
