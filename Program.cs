@@ -20,11 +20,12 @@ namespace IAR
         {
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
-            NpgsqlConnection connection = DatabaseManager.GetConnection();
-            connection.Open();
-            var list=DatabaseManager.Execute("select * from produit",connection);
-            connection.Close();
-            Console.WriteLine(list[0]["produit"]);
+            // NpgsqlConnection connection = DatabaseManager.GetConnection();
+            // connection.Open();
+            // var list=DatabaseManager.Get("select * from produit",connection);
+            // connection.Close();
+            // Console.WriteLine(list[0]["produit"]);
+            DatabaseManager.Execute("Insert into client(nom) values('Malko')");
             // ApplicationConfiguration.Initialize();
             // Application.Run(new Form1());
         }

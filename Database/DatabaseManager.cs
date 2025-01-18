@@ -1,5 +1,5 @@
-﻿using Emgu.CV.Aruco;
-using Npgsql;
+﻿using Npgsql;
+using Exception = System.Exception;
 
 namespace IAR.Database;
 
@@ -10,11 +10,11 @@ public sealed class DatabaseManager
 
     protected static void SetConnectionString()
     {
-        Dictionary<string,string> properties = new Dictionary<string,string>();
-        connectionString = $"Host={properties["Host"]}Port={properties["Port"]};Username={properties["Username"]};Password={properties["Password"]};Database={properties["Database"]}";
+        Dictionary<string,string> properties = ReadProperties();
+        connectionString = $"Host={properties["Host"]};Port={properties["Port"]};Username={properties["Username"]};Password={properties["Password"]};Database={properties["Database"]}";
     }
 
-    public static List<Dictionary<string, Object>> Execute(string query, NpgsqlConnection connection)
+    public static List<Dictionary<string, Object>> Get(string query, NpgsqlConnection connection)
     {
         List<Dictionary<string, Object>> result = new List<Dictionary<string, Object>>();
         using (var command = new NpgsqlCommand(query, connection))
@@ -59,14 +59,14 @@ public sealed class DatabaseManager
         return columnNames;
     }
 
-    public static List<Dictionary<string, Object>> Execute(string query)
+    public static List<Dictionary<string, Object>> Get(string query)
     {
         List<Dictionary<string, Object>> result = new List<Dictionary<string, Object>>();
         NpgsqlConnection connection = new NpgsqlConnection(connectionString);
         try
         {
             connection.Open();
-            return Execute(query, connection);
+            return Get(query, connection);
         }
         catch (Exception ex)
         {
@@ -122,5 +122,50 @@ public sealed class DatabaseManager
         }
 
         return result;
+    }
+
+    public static void Execute(string query, NpgsqlConnection connection,NpgsqlTransaction transaction)
+    {
+        // Créer un objet NpgsqlCommand et l'associer à la transaction
+        using (var command = new NpgsqlCommand())
+        {
+            command.Connection = connection;
+            command.Transaction = transaction;
+
+            // Requête SQL 1 (exemple d'INSERT)
+            command.CommandText = query;
+            command.ExecuteNonQuery();
+        }
+    }
+    public static void Execute(string query,NpgsqlConnection connection)
+    {
+        // Créer un objet NpgsqlCommand et l'associer à la transaction
+        using (var command = new NpgsqlCommand())
+        {
+            command.Connection = connection;
+
+            // Requête SQL 1 (exemple d'INSERT)
+            command.CommandText = query;
+            command.ExecuteNonQuery();
+        }
+    }
+    
+    public static void Execute(string query)
+    {
+        NpgsqlConnection connection = null;
+        try
+        {
+            connection = GetConnection();
+            connection.Open();
+            Execute(query, connection);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Erreur : {ex.Message}");
+        }
+        finally
+        {
+            connection?.Close();
+        }
     }
 }
