@@ -1,0 +1,5 @@
+﻿bin
+.vs
+.idea
+obj
+config.properties

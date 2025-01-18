@@ -1,4 +1,6 @@
+using Emgu.CV.Structure;
 using IAR.Image;
+using IAR.Game;
 
 namespace IAR
 {
@@ -23,7 +25,6 @@ namespace IAR
         private void button1_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Images PNG|*.png|Images JPG|*.jpg|Images JPEG|*.jpeg|Tous les fichiers|*.*"; // Filtrer les types de fichiers
             openFileDialog.Title = "S�lectionner un fichier";
 
             // Afficher la bo�te de dialogue et v�rifier si l'utilisateur a choisi un fichier
@@ -36,25 +37,26 @@ namespace IAR
 
         private void buttonAnalyse_Click(object sender, EventArgs e)
         {
-            TraitementImage traitementImage = new TraitementImage(filePathTextBox.Text);
-            List<Movable> playersRed = traitementImage.GetPlayersRed();
-            List<Movable> playersBlue = traitementImage.GetPlayersBlue();
+            ImageTraitement traitementImage = new ImageTraitement(filePathTextBox.Text);
+            // TraitementImage traitementImage = new TraitementImage(filePathTextBox.Text);
+            List<Movable> playersRed = traitementImage.GetRedPlayers();
+            List<Movable> playersBlue = traitementImage.GetBluePlayers();
             Team teamBlue = new Team(playersBlue, "Blue", Brushes.Blue);
-            teamBlue.attackingUp = true;
             Team teamRed = new Team(playersRed, "Red", Brushes.Red);
-            teamRed.attackingUp = false;
             Movable ball = traitementImage.GetBlackBall();
-            this.match = new Match(teamRed, teamBlue, ball);
-            panel1.Invalidate();
+            List<LineSegment2D> lines = traitementImage.GetLines();
+            this.match = new Match(teamRed, teamBlue, ball,lines);
+            traitementImage.drawImage(this.match,lines);
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
-            if (this.match!=null)
-            {
-                this.match.paint(e.Graphics);
-            }
-            Console.WriteLine("Paint");
+            
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
