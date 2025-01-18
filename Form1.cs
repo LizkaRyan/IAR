@@ -7,6 +7,7 @@ namespace IAR
     public partial class Form1 : Form
     {
         private Match match;
+        private bool offside;
         public Form1()
         {
             InitializeComponent();
@@ -25,9 +26,9 @@ namespace IAR
         private void button1_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Title = "S�lectionner un fichier";
+            openFileDialog.Title = "Sélectionner un fichier";
 
-            // Afficher la bo�te de dialogue et v�rifier si l'utilisateur a choisi un fichier
+            // Afficher la boîte de dialogue et vérifier si l'utilisateur a choisi un fichier
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 // Afficher le chemin du fichier s�lectionn� dans la zone de texte
@@ -38,25 +39,49 @@ namespace IAR
         private void buttonAnalyse_Click(object sender, EventArgs e)
         {
             ImageTraitement traitementImage = new ImageTraitement(filePathTextBox.Text);
-            // TraitementImage traitementImage = new TraitementImage(filePathTextBox.Text);
-            List<Movable> playersRed = traitementImage.GetRedPlayers();
-            List<Movable> playersBlue = traitementImage.GetBluePlayers();
-            Team teamBlue = new Team(playersBlue, "Blue", Brushes.Blue);
-            Team teamRed = new Team(playersRed, "Red", Brushes.Red);
-            Movable ball = traitementImage.GetBlackBall();
-            List<LineSegment2D> lines = traitementImage.GetLines();
-            this.match = new Match(teamRed, teamBlue, ball,lines);
-            traitementImage.drawImage(this.match,lines);
+            if (this.match == null)
+            {
+                this.match = traitementImage.GenerateMatch();
+            }
+            else
+            {
+                this.match.Next(traitementImage);
+            }
+            offside = this.match.IsPlayerLeadingOffside();
+            traitementImage.DrawImage(this.match);
+            traitementImage.setImagePath(ImageFilePath.Text);
+            this.match.Next(traitementImage);
+            if (!offside)
+            {
+                this.match.SetPointTeam();
+            }
+            traitementImage.DrawImage(this.match);
+            
+            Console.WriteLine($"{this.match.Team1.teamName} : {this.match.Team1.point} - " +
+                              $"{this.match.Team2.teamName} : {this.match.Team2.point} ");
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
-            
+
         }
 
         private void label2_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Title = "Sélectionner un fichier";
+
+            // Afficher la bo�te de dialogue et v�rifier si l'utilisateur a choisi un fichier
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                // Afficher le chemin du fichier s�lectionn� dans la zone de texte
+                ImageFilePath.Text = openFileDialog.FileName;
+            }
         }
     }
 }
