@@ -28,6 +28,15 @@ public class ImageTraitement
     public void setImagePath(string imagePath)
     {
         image = CvInvoke.Imread(imagePath);
+        // Nouvelle largeur souhaitée
+        int newWidth = 600;
+
+        // Calcul de la hauteur en conservant le ratio d'aspect
+        double aspectRatio = (double)image.Height / image.Width;
+        int newHeight = (int)(newWidth * aspectRatio);
+        
+        CvInvoke.Resize(image, image, new System.Drawing.Size(newWidth, newHeight), 0, 0, Inter.Linear);
+        
     }
 
     public List<Movable> GetRedPlayers()
@@ -167,7 +176,7 @@ public class ImageTraitement
         Movable lastDefender = match.GetBeforeLastDefender();
         List<Movable> metys = match.GetTeamLeadingTheBall().GetPLayerInFrontOfTheBall(match.Ball);
         CvInvoke.Line(image, new Point(0,lastDefender.GetBackPoint().Y), new Point(image.Width,lastDefender.GetBackPoint().Y), new MCvScalar(0, 0, 255), 2);
-
+        
         // Ajouter le texte à l'image
         foreach (Movable movable in movables)
         {

@@ -32,7 +32,7 @@ namespace IAR.Game
 
         public Boolean AttackingUp
         {
-            get;
+            get { return _attackingUp; }
         }
 
         public Team(List<Movable> joueurs,string teamName,Brush color) 

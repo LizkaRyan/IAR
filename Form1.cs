@@ -28,7 +28,7 @@ namespace IAR
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Title = "Sélectionner un fichier";
 
-            // Afficher la bo�te de dialogue et v�rifier si l'utilisateur a choisi un fichier
+            // Afficher la boîte de dialogue et vérifier si l'utilisateur a choisi un fichier
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 // Afficher le chemin du fichier s�lectionn� dans la zone de texte
@@ -51,7 +51,7 @@ namespace IAR
             traitementImage.drawImage(this.match);
             traitementImage.setImagePath(ImageFilePath.Text);
             this.match.Next(traitementImage);
-            if (offside)
+            if (!offside)
             {
                 this.match.SetPointTeam();
             }

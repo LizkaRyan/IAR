@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Emgu.CV.Structure;
+﻿using Emgu.CV.Structure;
 using IAR.Image;
 
 namespace IAR.Game
@@ -99,11 +94,13 @@ namespace IAR.Game
         {
             if (this.Team1.LostAPoint(this.Ball))
             {
+                Console.WriteLine("But!!!!!");
                 this.Team2.point++;
             }
 
             if (this.Team2.LostAPoint(this.Ball))
             {
+                Console.WriteLine("But!!!!!");
                 this.Team1.point++;
             }
         }
