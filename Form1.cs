@@ -1,5 +1,6 @@
 using Emgu.CV.Structure;
 using IAR.Image;
+using IAR.Game;
 
 namespace IAR
 {

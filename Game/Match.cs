@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Emgu.CV.Structure;
 
-namespace IAR
+namespace IAR.Game
 {
     public class Match
     {
