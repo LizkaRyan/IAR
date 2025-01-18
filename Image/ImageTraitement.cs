@@ -163,7 +163,7 @@ public class ImageTraitement
         return horizontalLines;
     }
     
-    public void drawImage(Match match)
+    public void DrawImage(Match match)
     {
         // Définir les paramètres du texte
         string texte = "HJ"; // La lettre ou le texte à afficher

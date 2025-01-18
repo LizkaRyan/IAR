@@ -48,14 +48,14 @@ namespace IAR
                 this.match.Next(traitementImage);
             }
             offside = this.match.IsPlayerLeadingOffside();
-            traitementImage.drawImage(this.match);
+            traitementImage.DrawImage(this.match);
             traitementImage.setImagePath(ImageFilePath.Text);
             this.match.Next(traitementImage);
             if (!offside)
             {
                 this.match.SetPointTeam();
             }
-            traitementImage.drawImage(this.match);
+            traitementImage.DrawImage(this.match);
             
             Console.WriteLine($"{this.match.Team1.teamName} : {this.match.Team1.point} - " +
                               $"{this.match.Team2.teamName} : {this.match.Team2.point} ");
