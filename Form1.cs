@@ -1,3 +1,4 @@
+using Emgu.CV.Structure;
 using IAR.Image;
 
 namespace IAR
@@ -42,16 +43,14 @@ namespace IAR
             Team teamBlue = new Team(playersBlue, "Blue", Brushes.Blue);
             Team teamRed = new Team(playersRed, "Red", Brushes.Red);
             Movable ball = traitementImage.GetBlackBall();
-            this.match = new Match(teamRed, teamBlue, ball);
-            traitementImage.drawImage(this.match);
+            List<LineSegment2D> lines = traitementImage.GetLines();
+            this.match = new Match(teamRed, teamBlue, ball,lines);
+            traitementImage.drawImage(this.match,lines);
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
-            if (this.match != null)
-            {
-                this.match.paint(e.Graphics);
-            }
+            
         }
 
         private void label2_Click(object sender, EventArgs e)

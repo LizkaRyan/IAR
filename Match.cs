@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Emgu.CV.Structure;
 
 namespace IAR
 {
@@ -12,15 +13,17 @@ namespace IAR
         Team team2 { get; set; }
         public Movable ball { get; set; }
 
-        public Match(Team team1,Team team2,Movable ball)
+        public Match(Team team1,Team team2,Movable ball,List<LineSegment2D> lines)
         {
             this.team1 = team1;
             this.team2 = team2;
             this.ball = ball;
-            this.setDirection();
+            this.setDirection(lines);
+            this.SetPointTeam();
+            Console.WriteLine($"{team1.teamName} : {team1.point} | {team2.teamName} : {team2.point}");
         }
         
-        protected void setDirection()
+        protected void setDirection(List<LineSegment2D> lines)
         {
             Movable minY = null;
             Movable maxY = null;
@@ -55,26 +58,25 @@ namespace IAR
 
             if (team1.players.Contains(minY))
             {
-                team1.setAttackingUp(false);
-                team2.setAttackingUp(true);
+                team1.setAttackingUp(false,lines);
+                team2.setAttackingUp(true,lines);
                 return;
             }
-            team1.setAttackingUp(true);
-            team2.setAttackingUp(false);
+            team1.setAttackingUp(true,lines);
+            team2.setAttackingUp(false,lines);
         }
 
-        public void paint(Graphics g)
+        public void SetPointTeam()
         {
-            team1.paint(g);
-            team2.paint(g);
-            ball.paint(g,Brushes.Black);
-            List<Movable> movables = GetPlayerOffside();
-            Font font = new Font("Arial", 15);
-            foreach (Movable movable in movables)
+            if (this.team1.LostAPoint(this.ball))
             {
-                g.DrawString("H", font, Brushes.Black, movable.centerPoint.X, movable.centerPoint.Y);
+                this.team2.point++;
             }
-            font.Dispose();
+
+            if (this.team2.LostAPoint(this.ball))
+            {
+                this.team1.point++;
+            }
         }
 
         public Team GetTeamLeadingTheBall()

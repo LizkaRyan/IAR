@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Emgu.CV.Structure;
 
 namespace IAR
 {
@@ -12,6 +13,24 @@ namespace IAR
         public List<Movable> players { get; set; }
         Brush color { get; set; }
         public string teamName { get; set; }
+        
+        private LineSegment2D but;
+
+        public int point=0;
+
+        public LineSegment2D But
+        {
+            get { return but; }
+            set
+            {
+                SetLineSegments(value);
+            }
+        }
+
+        protected void SetLineSegments(LineSegment2D but)
+        {
+            this.but = but;
+        }
 
         protected Boolean attackingUp=false;
 
@@ -27,13 +46,39 @@ namespace IAR
             return this.attackingUp;
         }
 
-        public void setAttackingUp(Boolean attackingUp)
+        public void setAttackingUp(Boolean attackingUp,List<LineSegment2D> buts)
         {
             this.attackingUp = attackingUp;
             foreach (var player in players)
             {
                 player.SetAttackingUp(attackingUp);
             }
+            if (this.attackingUp)
+            {
+                buts = buts.OrderByDescending(but => but.P1.Y).ToList();
+            }
+            else
+            {
+                buts = buts.OrderBy(but => but.P1.Y).ToList();
+            }
+            this.SetLineSegments(buts[0]);
+        }
+
+        public Boolean LostAPoint(Movable ball)
+        {
+            Boolean behindTheBut = false;
+            if (attackingUp)
+            {
+                behindTheBut = ball.centerPoint.Y > but.P1.Y;
+            }
+            else
+            {
+                behindTheBut = ball.centerPoint.Y < but.P1.Y;
+            }
+
+            int xMin=Math.Min(but.P1.X, but.P2.X);
+            int xMax=Math.Max(but.P1.X, but.P2.X);
+            return xMin < ball.centerPoint.X && ball.centerPoint.X < xMax && behindTheBut;
         }
 
         public Movable GetPlayerNearestBall(Movable ball)

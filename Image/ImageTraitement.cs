@@ -99,9 +99,45 @@ public class ImageTraitement
 
         return players;
     }
+
+    public List<LineSegment2D> GetLines()
+    {
+        // Convertir l'image en niveaux de gris
+        Mat gray = new Mat();
+        CvInvoke.CvtColor(image, gray, ColorConversion.Bgr2Gray);
+
+        // Inverser les couleurs si les lignes sont noires sur un fond clair
+        CvInvoke.BitwiseNot(gray, gray);
+
+        // Appliquer un seuil pour isoler les lignes noires
+        Mat binary = new Mat();
+        CvInvoke.Threshold(gray, binary, 50, 255, ThresholdType.Binary);
+
+        // Détecter les contours
+        Mat edges = new Mat();
+        CvInvoke.Canny(binary, edges, 50, 150);
+
+        // Appliquer la transformation de Hough pour détecter les lignes
+        LineSegment2D[] lines = CvInvoke.HoughLinesP(edges, 1, Math.PI / 180, 80, 100, 20);
+        
+        List<LineSegment2D> horizontalLines = new List<LineSegment2D>();
+
+        foreach (var line in lines)
+        {
+            // Calcul de la pente
+            double slope = Math.Abs((double)(line.P2.Y - line.P1.Y) / (line.P2.X - line.P1.X + 1e-5)); // +1e-5 pour éviter division par zéro
+
+            // Si la pente est proche de 0, on considère la ligne comme horizontale
+            if (slope < 0.1) // Ajustez le seuil selon votre tolérance
+            {
+                horizontalLines.Add(line);
+            }
+        }
+
+        return horizontalLines;
+    }
     
-    
-    public void drawImage(Match match)
+    public void drawImage(Match match,List<LineSegment2D> lines)
     {
         // Définir les paramètres du texte
         string texte = "HJ"; // La lettre ou le texte à afficher
@@ -110,6 +146,11 @@ public class ImageTraitement
         int epaisseur = 2; // Épaisseur du texte
         FontFace stylePolice = FontFace.HersheySimplex; // Style de la police
 
+        foreach (LineSegment2D line in lines)
+        {
+            CvInvoke.ArrowedLine(image,  line.P1,line.P2, new MCvScalar(0, 0, 0), 2);
+        }
+        
         List<Movable> movables = match.GetPlayerOffside();
         Movable lastDefender = match.GetBeforeLastDefender();
         List<Movable> metys = match.GetTeamLeadingTheBall().GetPLayerInFrontOfTheBall(match.ball);
