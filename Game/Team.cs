@@ -1,10 +1,20 @@
 ﻿using System.Diagnostics;
 using Emgu.CV.Structure;
+using IAR.Database;
+using IAR.Exception;
+using Npgsql;
 
 namespace IAR.Game
 {
     public class Team
     {
+        private int _id;
+
+        public int Id
+        {
+            get { return _id; }
+        }
+        
         public List<Movable> players;
         
         Brush color { get; set; }
@@ -40,6 +50,32 @@ namespace IAR.Game
             this.teamName = teamName;
             this.players = joueurs;
             this.color = color;
+        }
+
+        protected Team(int id, string teamName)
+        {
+            this.teamName = teamName;
+            this._id = id;
+        }
+
+        public Team GetTeamByName(NpgsqlConnection connection)
+        {
+            var team = DatabaseManager.Get($"select * from team where team = '{this.teamName}'",connection);
+            if (team.Count == 0)
+            {
+                throw new TeamNameNotFoundException(this.teamName);
+            }
+            return new Team((int)team[0]["id_team"],(string)team[0]["team"]);
+        }
+        
+        public void setIdTeamByName(NpgsqlConnection connection)
+        {
+            var team = DatabaseManager.Get($"select id_team from team where team = '{this.teamName}'",connection);
+            if (team.Count == 0)
+            {
+                throw new TeamNameNotFoundException(this.teamName);
+            }
+            this._id=(int)team[0]["id_team"];
         }
 
         public void setAttackingUp(Boolean attackingUp,List<LineSegment2D> buts)

@@ -5,13 +5,25 @@ namespace IAR.Database;
 
 public sealed class DatabaseManager
 {
-    protected static String connectionString = null;
+    protected static String _connectionString = null;
+
+    protected static String ConnectionString
+    {
+        get
+        {
+            if (_connectionString == null)
+            {
+                SetConnectionString();
+            }
+            return _connectionString;
+        }
+    }
 
 
     protected static void SetConnectionString()
     {
         Dictionary<string,string> properties = ReadProperties();
-        connectionString = $"Host={properties["Host"]};Port={properties["Port"]};Username={properties["Username"]};Password={properties["Password"]};Database={properties["Database"]}";
+        _connectionString = $"Host={properties["Host"]};Port={properties["Port"]};Username={properties["Username"]};Password={properties["Password"]};Database={properties["Database"]}";
     }
 
     public static List<Dictionary<string, Object>> Get(string query, NpgsqlConnection connection)
@@ -41,11 +53,7 @@ public sealed class DatabaseManager
 
     public static NpgsqlConnection GetConnection()
     {
-        if (connectionString==null)
-        {
-            SetConnectionString();
-        }
-        return new NpgsqlConnection(connectionString);
+        return new NpgsqlConnection(ConnectionString);
     }
 
     protected static string[] GetColumnNames(NpgsqlDataReader reader)
@@ -62,15 +70,15 @@ public sealed class DatabaseManager
     public static List<Dictionary<string, Object>> Get(string query)
     {
         List<Dictionary<string, Object>> result = new List<Dictionary<string, Object>>();
-        NpgsqlConnection connection = new NpgsqlConnection(connectionString);
+        NpgsqlConnection connection = new NpgsqlConnection(ConnectionString);
         try
         {
             connection.Open();
             return Get(query, connection);
         }
-        catch (Exception ex)
+        catch (System.Exception ex)
         {
-            Console.WriteLine($"Erreur : {ex.Message}");
+            throw;
         }
         finally
         {
@@ -114,11 +122,11 @@ public sealed class DatabaseManager
         }
         catch (FileNotFoundException ex)
         {
-            Console.WriteLine($"Put the config.properties file at the root of the project: {ex.Message}");
+            Console.WriteLine($@"Put the config.properties file at the root of the project: {ex.Message}");
         }
-        catch (Exception ex)
+        catch (System.Exception ex)
         {
-            Console.WriteLine($"Erreur lors de la lecture du fichier : {ex.Message}");
+            Console.WriteLine($@"Erreur lors de la lecture du fichier : {ex.Message}");
         }
 
         return result;
@@ -145,8 +153,15 @@ public sealed class DatabaseManager
             command.Connection = connection;
 
             // Requête SQL 1 (exemple d'INSERT)
-            command.CommandText = query;
-            command.ExecuteNonQuery();
+            try
+            {
+                command.CommandText = query;
+                command.ExecuteNonQuery();
+            }
+            catch (System.Exception ex)
+            {
+                throw;
+            }
         }
     }
     
@@ -159,9 +174,9 @@ public sealed class DatabaseManager
             connection.Open();
             Execute(query, connection);
         }
-        catch (Exception ex)
+        catch (System.Exception ex)
         {
-            Console.WriteLine($"Erreur : {ex.Message}");
+            throw;
         }
         finally
         {

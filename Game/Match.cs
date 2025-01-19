@@ -1,5 +1,8 @@
 ﻿using Emgu.CV.Structure;
+using IAR.Database;
+using IAR.Exception;
 using IAR.Image;
+using Npgsql;
 
 namespace IAR.Game
 {
@@ -14,21 +17,42 @@ namespace IAR.Game
         }
 
         private Team _team2;
-        
+
         public Team Team2
         {
             get { return _team2; }
             set { _team2.players = value.players; }
         }
-        
+
         public Movable Ball;
 
-        public Match(Team team1,Team team2,Movable ball,List<LineSegment2D> lines)
+        public Match(Team team1, Team team2, Movable ball, List<LineSegment2D> lines)
         {
             this._team1 = team1;
             this._team2 = team2;
             this.Ball = ball;
             this.setDirection(lines);
+        }
+
+        public void Save()
+        {
+            NpgsqlConnection connection = DatabaseManager.GetConnection();
+            connection.Open();
+            try
+            {
+                this._team1.setIdTeamByName(connection);
+                this._team2.setIdTeamByName(connection);
+                DatabaseManager.Execute(
+                    $"insert into game(id_insider,id_outsider,score_insider,score_outsider) values({this._team1.Id},{this._team2.Id},{this._team1.point},{this._team2.point})",connection);
+            }
+            catch (TeamNameNotFoundException ex)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+            }
         }
 
         public void Next(ImageTraitement traitementImage)
@@ -43,10 +67,11 @@ namespace IAR.Game
                 this.Team1.players = traitementImage.GetBluePlayers();
                 this.Team2.players = traitementImage.GetRedPlayers();
             }
+
             this.Ball = traitementImage.GetBlackBall();
             this.setDirection(traitementImage.GetLines());
         }
-        
+
         protected void setDirection(List<LineSegment2D> lines)
         {
             Movable minY = null;
@@ -55,25 +80,28 @@ namespace IAR.Game
             int valueMaxY = 0;
             foreach (var player in _team1.players)
             {
-                if (valueMinY>player.centerPoint.Y)
+                if (valueMinY > player.centerPoint.Y)
                 {
                     valueMinY = player.centerPoint.Y;
                     minY = player;
                 }
-                if (valueMaxY<player.centerPoint.Y)
+
+                if (valueMaxY < player.centerPoint.Y)
                 {
                     valueMaxY = player.centerPoint.Y;
                     maxY = player;
                 }
             }
+
             foreach (var player in Team2.players)
             {
-                if (valueMinY>player.centerPoint.Y)
+                if (valueMinY > player.centerPoint.Y)
                 {
                     valueMinY = player.centerPoint.Y;
                     minY = player;
                 }
-                if (valueMaxY<player.centerPoint.Y)
+
+                if (valueMaxY < player.centerPoint.Y)
                 {
                     valueMaxY = player.centerPoint.Y;
                     maxY = player;
@@ -82,25 +110,26 @@ namespace IAR.Game
 
             if (Team1.players.Contains(minY))
             {
-                Team1.setAttackingUp(false,lines);
-                Team2.setAttackingUp(true,lines);
+                Team1.setAttackingUp(false, lines);
+                Team2.setAttackingUp(true, lines);
                 return;
             }
-            Team1.setAttackingUp(true,lines);
-            Team2.setAttackingUp(false,lines);
+
+            Team1.setAttackingUp(true, lines);
+            Team2.setAttackingUp(false, lines);
         }
 
         public void SetPointTeam()
         {
             if (this.Team1.LostAPoint(this.Ball))
             {
-                Console.WriteLine("But!!!!!");
+                Console.WriteLine(@"But!!!!!");
                 this.Team2.point++;
             }
 
             if (this.Team2.LostAPoint(this.Ball))
             {
-                Console.WriteLine("But!!!!!");
+                Console.WriteLine(@"But!!!!!");
                 this.Team1.point++;
             }
         }
@@ -124,6 +153,7 @@ namespace IAR.Game
                     return true;
                 }
             }
+
             return false;
         }
 
@@ -132,21 +162,25 @@ namespace IAR.Game
             double closest = 9999999999d;
             foreach (Movable player1 in _team1.players)
             {
-                double distance = Math.Sqrt(Math.Pow(Ball.centerPoint.X - player1.centerPoint.X, 2) + Math.Pow(Ball.centerPoint.Y - player1.centerPoint.Y, 2));
+                double distance = Math.Sqrt(Math.Pow(Ball.centerPoint.X - player1.centerPoint.X, 2) +
+                                            Math.Pow(Ball.centerPoint.Y - player1.centerPoint.Y, 2));
                 if (distance < closest)
                 {
                     closest = distance;
                 }
             }
+
             foreach (Movable player2 in Team2.players)
             {
-                double distance = Math.Sqrt(Math.Pow(Ball.centerPoint.X - player2.centerPoint.X, 2) + Math.Pow(Ball.centerPoint.Y - player2.centerPoint.Y, 2));
+                double distance = Math.Sqrt(Math.Pow(Ball.centerPoint.X - player2.centerPoint.X, 2) +
+                                            Math.Pow(Ball.centerPoint.Y - player2.centerPoint.Y, 2));
                 if (distance < closest)
                 {
                     closest = distance;
                     return Team2;
                 }
             }
+
             return Team1;
         }
 
@@ -156,6 +190,7 @@ namespace IAR.Game
             {
                 return Team2;
             }
+
             return this.Team1;
         }
 
@@ -163,7 +198,7 @@ namespace IAR.Game
         {
             Team teamLeadingTheBall = GetTeamLeadingTheBall();
             Team opposingTeam = GetOpponentTeam(teamLeadingTheBall);
-            return opposingTeam.GetBeforeLastDefender();   
+            return opposingTeam.GetBeforeLastDefender();
         }
 
         public List<Movable> GetPlayerOffside()
@@ -177,19 +212,22 @@ namespace IAR.Game
             {
                 if (teamLeadingTheBall.AttackingUp)
                 {
-                    if (playerLeadingBall != player && player.GetFrontPoint().Y < beforeLastDefender.GetBackPoint().Y && player.GetFrontPoint().Y < Ball.centerPoint.Y)
+                    if (playerLeadingBall != player && player.GetFrontPoint().Y < beforeLastDefender.GetBackPoint().Y &&
+                        player.GetFrontPoint().Y < Ball.centerPoint.Y)
                     {
                         players.Add(player);
                     }
                 }
                 else
                 {
-                    if (playerLeadingBall != player && player.GetFrontPoint().Y > beforeLastDefender.GetBackPoint().Y && player.GetFrontPoint().Y > Ball.centerPoint.Y)
+                    if (playerLeadingBall != player && player.GetFrontPoint().Y > beforeLastDefender.GetBackPoint().Y &&
+                        player.GetFrontPoint().Y > Ball.centerPoint.Y)
                     {
                         players.Add(player);
                     }
                 }
             }
+
             return players;
         }
     }
