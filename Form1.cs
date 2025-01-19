@@ -1,4 +1,5 @@
 using Emgu.CV.Structure;
+using IAR.Database;
 using IAR.Image;
 using IAR.Game;
 
@@ -56,7 +57,7 @@ namespace IAR
                 this.match.SetPointTeam();
             }
             traitementImage.DrawImage(this.match);
-            
+
             Console.WriteLine($"{this.match.Team1.teamName} : {this.match.Team1.point} - " +
                               $"{this.match.Team2.teamName} : {this.match.Team2.point} ");
         }
@@ -82,6 +83,41 @@ namespace IAR
                 // Afficher le chemin du fichier s�lectionn� dans la zone de texte
                 ImageFilePath.Text = openFileDialog.FileName;
             }
+        }
+
+        private void ButtonCommencer_Click(object sender, EventArgs e)
+        {
+            MainPanel.Controls.Clear();
+            MainPanel.Controls.Add(AnalysePanel);
+        }
+
+        private void ButtonResultat_Click(object sender, EventArgs e)
+        {
+            Cursor = Cursors.WaitCursor;
+            ResultTable.Rows.Clear();
+            var matches = DatabaseManager.Get("select g.*,t1.team as insider,t2.team as outsider from game as g join team as t1 on id_insider = t1.id_team join team as t2 on id_outsider = t2.id_team");
+            foreach (Dictionary<string,object> match in matches)
+            {
+                ResultTable.Rows.Add(match["id_game"],match["outsider"],match["insider"],match["score_insider"],match["score_outsider"]);
+            }
+            MainPanel.Controls.Clear();
+            MainPanel.Controls.Add(ResultPanel);
+            Cursor = Cursors.Default;
+        }
+
+        private void ButtonTerminer_Click(object sender, EventArgs e)
+        {
+            MainPanel.Controls.Clear();
+            MainPanel.Controls.Add(MenuPanel);
+        }
+
+        private void FinishButton_Click(object sender, EventArgs e)
+        {
+            Cursor = Cursors.WaitCursor;
+            this.match.Save();
+            MainPanel.Controls.Clear();
+            MainPanel.Controls.Add(MenuPanel);
+            Cursor = Cursors.Default;
         }
     }
 }
