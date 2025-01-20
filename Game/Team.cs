@@ -113,7 +113,6 @@ namespace IAR.Game
             }
             else
             {
-                Console.WriteLine($"{goalKeeper.GetFrontPoint().Y} < {ball.centerPoint.Y} && {ball.centerPoint.Y} < {goalKeeper.GetFrontPoint().Y+(goalKeeper.radius*2)}");
                 if (goalKeeper.GetFrontPoint().Y < ball.centerPoint.Y && ball.centerPoint.Y < goalKeeper.GetFrontPoint().Y+(goalKeeper.radius*2))
                 {
                     if (goalKeeper.centerPoint.X-goalKeeper.radius < ball.centerPoint.X && ball.centerPoint.X < goalKeeper.centerPoint.X+goalKeeper.radius)

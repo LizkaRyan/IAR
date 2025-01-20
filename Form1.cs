@@ -102,7 +102,7 @@ namespace IAR
             var matches = DatabaseManager.Get("select g.*,t1.team as insider,t2.team as outsider from game as g join team as t1 on id_insider = t1.id_team join team as t2 on id_outsider = t2.id_team");
             foreach (Dictionary<string,object> match in matches)
             {
-                ResultTable.Rows.Add(match["id_game"],match["outsider"],match["insider"],match["score_outsider"],match["score_insider"]);
+                ResultTable.Rows.Add(match["id_game"], match["outsider"], match["insider"], match["score_outsider"], match["score_insider"], match["arret_outsider"], match["arret_insider"]);
             }
             MainPanel.Controls.Clear();
             MainPanel.Controls.Add(ResultPanel);
