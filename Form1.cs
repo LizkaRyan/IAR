@@ -57,6 +57,8 @@ namespace IAR
                 this.match.SetPointTeam();
             }
             traitementImage.DrawImage(this.match);
+            this.ScoreLabel.Text =
+                $@"{this.match.Team1.teamName} : {this.match.Team1.point} - {this.match.Team2.point} : {this.match.Team2.teamName}";
 
             Console.WriteLine($"{this.match.Team1.teamName} : {this.match.Team1.point} - " +
                               $"{this.match.Team2.teamName} : {this.match.Team2.point} ");
