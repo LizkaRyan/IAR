@@ -43,7 +43,7 @@ namespace IAR.Game
                 this._team1.setIdTeamByName(connection);
                 this._team2.setIdTeamByName(connection);
                 DatabaseManager.Execute(
-                    $"insert into game(id_insider,id_outsider,score_insider,score_outsider) values({this._team1.Id},{this._team2.Id},{this._team1.point},{this._team2.point})",connection);
+                    $"insert into game(id_insider,id_outsider,score_insider,score_outsider,arret_insider,arret_outsider) values({this._team1.Id},{this._team2.Id},{this._team1.point},{this._team2.point},{this._team1.arret},{this._team2.arret})",connection);
             }
             catch (TeamNameNotFoundException ex)
             {

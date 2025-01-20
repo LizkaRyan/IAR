@@ -56,10 +56,14 @@ namespace IAR
             {
                 this.match.SetPointTeam();
             }
-            traitementImage.DrawImage(this.match);
+
+            this.ArretLabel.Text = $@"Arret {this.match.Team1.teamName} : {this.match.Team1.arret} - {this.match.Team2.arret} : {this.match.Team2.teamName} Arret";
+                this.ScoreLabel.Text =         
+                    $@"{this.match.Team1.teamName} : {this.match.Team1.point} - {this.match.Team2.point} : {this.match.Team2.teamName}";
 
             Console.WriteLine($"{this.match.Team1.teamName} : {this.match.Team1.point} - " +
                               $"{this.match.Team2.teamName} : {this.match.Team2.point} ");
+            traitementImage.DrawImage(this.match);
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -98,7 +102,7 @@ namespace IAR
             var matches = DatabaseManager.Get("select g.*,t1.team as insider,t2.team as outsider from game as g join team as t1 on id_insider = t1.id_team join team as t2 on id_outsider = t2.id_team");
             foreach (Dictionary<string,object> match in matches)
             {
-                ResultTable.Rows.Add(match["id_game"],match["outsider"],match["insider"],match["score_outsider"],match["score_insider"]);
+                ResultTable.Rows.Add(match["id_game"], match["outsider"], match["insider"], match["score_outsider"], match["score_insider"], match["arret_outsider"], match["arret_insider"]);
             }
             MainPanel.Controls.Clear();
             MainPanel.Controls.Add(ResultPanel);

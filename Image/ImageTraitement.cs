@@ -185,7 +185,7 @@ public class ImageTraitement
 
         foreach (Movable mety in metys)
         {
-            if (!movables.Contains(mety))
+            if (!movables.Contains(mety) && mety!=match.GetTeamLeadingTheBall().GetPlayerNearestBall(match.Ball))
             {
                 CvInvoke.ArrowedLine(image,  match.Ball.centerPoint,mety.centerPoint, new MCvScalar(0, 0, 0), 2);
                 CvInvoke.PutText(image, "N", mety.centerPoint, stylePolice, taillePolice, couleur, epaisseur);

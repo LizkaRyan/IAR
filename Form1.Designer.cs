@@ -37,6 +37,8 @@
             ImageFilePath = new TextBox();
             button2 = new Button();
             AnalysePanel = new Panel();
+            ArretLabel = new Label();
+            ScoreLabel = new Label();
             FinishButton = new Button();
             ButtonFinish = new Button();
             MenuPanel = new Panel();
@@ -50,6 +52,8 @@
             ScoreOutside = new DataGridViewTextBoxColumn();
             ScoreInsider = new DataGridViewTextBoxColumn();
             MainPanel = new Panel();
+            ArretOutsider = new DataGridViewTextBoxColumn();
+            ArretInsider = new DataGridViewTextBoxColumn();
             AnalysePanel.SuspendLayout();
             MenuPanel.SuspendLayout();
             ResultPanel.SuspendLayout();
@@ -139,6 +143,8 @@
             // 
             // AnalysePanel
             // 
+            AnalysePanel.Controls.Add(ArretLabel);
+            AnalysePanel.Controls.Add(ScoreLabel);
             AnalysePanel.Controls.Add(FinishButton);
             AnalysePanel.Controls.Add(filePathTextBox);
             AnalysePanel.Controls.Add(button2);
@@ -147,8 +153,26 @@
             AnalysePanel.Controls.Add(ImageFilePath);
             AnalysePanel.Location = new Point(34, 15);
             AnalysePanel.Name = "AnalysePanel";
-            AnalysePanel.Size = new Size(874, 162);
+            AnalysePanel.Size = new Size(874, 222);
             AnalysePanel.TabIndex = 7;
+            // 
+            // ArretLabel
+            // 
+            ArretLabel.AutoSize = true;
+            ArretLabel.Location = new Point(338, 183);
+            ArretLabel.Name = "ArretLabel";
+            ArretLabel.Size = new Size(190, 20);
+            ArretLabel.TabIndex = 9;
+            ArretLabel.Text = "Arret Red : 0 - 0 : Arret Blue";
+            // 
+            // ScoreLabel
+            // 
+            ScoreLabel.AutoSize = true;
+            ScoreLabel.Location = new Point(373, 163);
+            ScoreLabel.Name = "ScoreLabel";
+            ScoreLabel.Size = new Size(116, 20);
+            ScoreLabel.TabIndex = 8;
+            ScoreLabel.Text = "Red : 0 - 0 : Blue";
             // 
             // FinishButton
             // 
@@ -228,12 +252,12 @@
             ResultTable.AllowUserToAddRows = false;
             ResultTable.AllowUserToDeleteRows = false;
             ResultTable.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            ResultTable.Columns.AddRange(new DataGridViewColumn[] { IdMatch, Exterieur, Interieur, ScoreOutside, ScoreInsider });
-            ResultTable.Location = new Point(29, 49);
+            ResultTable.Columns.AddRange(new DataGridViewColumn[] { IdMatch, Exterieur, Interieur, ScoreOutside, ScoreInsider, ArretOutsider, ArretInsider });
+            ResultTable.Location = new Point(3, 49);
             ResultTable.Name = "ResultTable";
             ResultTable.ReadOnly = true;
             ResultTable.RowHeadersWidth = 51;
-            ResultTable.Size = new Size(876, 188);
+            ResultTable.Size = new Size(931, 188);
             ResultTable.TabIndex = 0;
             // 
             // IdMatch
@@ -284,6 +308,22 @@
             MainPanel.Size = new Size(990, 436);
             MainPanel.TabIndex = 6;
             // 
+            // ArretOutsider
+            // 
+            ArretOutsider.HeaderText = "Arret Outsider";
+            ArretOutsider.MinimumWidth = 6;
+            ArretOutsider.Name = "ArretOutsider";
+            ArretOutsider.ReadOnly = true;
+            ArretOutsider.Width = 125;
+            // 
+            // ArretInsider
+            // 
+            ArretInsider.HeaderText = "Arret Insider";
+            ArretInsider.MinimumWidth = 6;
+            ArretInsider.Name = "ArretInsider";
+            ArretInsider.ReadOnly = true;
+            ArretInsider.Width = 125;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -329,5 +369,9 @@
         private Panel MainPanel;
         private Button ButtonFinish;
         private Button FinishButton;
+        private Label ScoreLabel;
+        private Label ArretLabel;
+        private DataGridViewTextBoxColumn ArretOutsider;
+        private DataGridViewTextBoxColumn ArretInsider;
     }
 }

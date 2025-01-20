@@ -24,6 +24,8 @@ namespace IAR.Game
 
         public int point=0;
 
+        public int arret = 0;
+
         public LineSegment2D But
         {
             get { return but; }
@@ -96,9 +98,41 @@ namespace IAR.Game
             this.SetLineSegments(buts[0]);
         }
 
+        public Boolean IsArret(Movable ball)
+        {
+            Movable goalKeeper=this.GetLastDefender();
+            if (this.AttackingUp)
+            {
+                if (goalKeeper.GetFrontPoint().Y > ball.centerPoint.Y && ball.centerPoint.Y > goalKeeper.GetFrontPoint().Y-(goalKeeper.radius*2))
+                {
+                    if (goalKeeper.centerPoint.X-goalKeeper.radius < ball.centerPoint.X && ball.centerPoint.X < goalKeeper.centerPoint.X+goalKeeper.radius)
+                    {
+                        return true;
+                    }                
+                }
+            }
+            else
+            {
+                if (goalKeeper.GetFrontPoint().Y < ball.centerPoint.Y && ball.centerPoint.Y < goalKeeper.GetFrontPoint().Y+(goalKeeper.radius*2))
+                {
+                    if (goalKeeper.centerPoint.X-goalKeeper.radius < ball.centerPoint.X && ball.centerPoint.X < goalKeeper.centerPoint.X+goalKeeper.radius)
+                    {
+                        return true;
+                    }                
+                }
+            }
+
+            return false;
+        }
+
         public Boolean LostAPoint(Movable ball)
         {
             Boolean behindTheBut = false;
+            Boolean arret = IsArret(ball);
+            if (arret)
+            {
+                this.arret++;
+            }
             if (_attackingUp)
             {
                 behindTheBut = ball.centerPoint.Y > but.P1.Y;
@@ -110,7 +144,7 @@ namespace IAR.Game
 
             int xMin=Math.Min(but.P1.X, but.P2.X);
             int xMax=Math.Max(but.P1.X, but.P2.X);
-            return xMin < ball.centerPoint.X && ball.centerPoint.X < xMax && behindTheBut;
+            return !arret && xMin < ball.centerPoint.X && ball.centerPoint.X < xMax && behindTheBut;
         }
 
         public Movable GetPlayerNearestBall(Movable ball)
