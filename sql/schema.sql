@@ -15,6 +15,8 @@ CREATE TABLE game(
                      score_insider SMALLINT NOT NULL,
                      id_insider INTEGER NOT NULL,
                      id_outsider INTEGER NOT NULL,
+                     arret_outsider INTEGER NOT NULL,
+                     arret_insider INTEGER NOT NULL,
                      PRIMARY KEY(id_game),
                      FOREIGN KEY(id_insider) REFERENCES team(id_team),
                      FOREIGN KEY(id_outsider) REFERENCES team(id_team)

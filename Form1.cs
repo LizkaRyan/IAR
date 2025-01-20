@@ -56,12 +56,14 @@ namespace IAR
             {
                 this.match.SetPointTeam();
             }
-            traitementImage.DrawImage(this.match);
-            this.ScoreLabel.Text =
-                $@"{this.match.Team1.teamName} : {this.match.Team1.point} - {this.match.Team2.point} : {this.match.Team2.teamName}";
+
+            this.ArretLabel.Text = $@"Arret {this.match.Team1.teamName} : {this.match.Team1.arret} - {this.match.Team2.arret} : {this.match.Team2.teamName} Arret";
+                this.ScoreLabel.Text =         
+                    $@"{this.match.Team1.teamName} : {this.match.Team1.point} - {this.match.Team2.point} : {this.match.Team2.teamName}";
 
             Console.WriteLine($"{this.match.Team1.teamName} : {this.match.Team1.point} - " +
                               $"{this.match.Team2.teamName} : {this.match.Team2.point} ");
+            traitementImage.DrawImage(this.match);
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)

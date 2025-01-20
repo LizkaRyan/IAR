@@ -37,6 +37,7 @@
             ImageFilePath = new TextBox();
             button2 = new Button();
             AnalysePanel = new Panel();
+            ScoreLabel = new Label();
             FinishButton = new Button();
             ButtonFinish = new Button();
             MenuPanel = new Panel();
@@ -50,7 +51,7 @@
             ScoreOutside = new DataGridViewTextBoxColumn();
             ScoreInsider = new DataGridViewTextBoxColumn();
             MainPanel = new Panel();
-            ScoreLabel = new Label();
+            ArretLabel = new Label();
             AnalysePanel.SuspendLayout();
             MenuPanel.SuspendLayout();
             ResultPanel.SuspendLayout();
@@ -140,6 +141,7 @@
             // 
             // AnalysePanel
             // 
+            AnalysePanel.Controls.Add(ArretLabel);
             AnalysePanel.Controls.Add(ScoreLabel);
             AnalysePanel.Controls.Add(FinishButton);
             AnalysePanel.Controls.Add(filePathTextBox);
@@ -149,8 +151,17 @@
             AnalysePanel.Controls.Add(ImageFilePath);
             AnalysePanel.Location = new Point(34, 15);
             AnalysePanel.Name = "AnalysePanel";
-            AnalysePanel.Size = new Size(874, 198);
+            AnalysePanel.Size = new Size(874, 222);
             AnalysePanel.TabIndex = 7;
+            // 
+            // ScoreLabel
+            // 
+            ScoreLabel.AutoSize = true;
+            ScoreLabel.Location = new Point(373, 163);
+            ScoreLabel.Name = "ScoreLabel";
+            ScoreLabel.Size = new Size(116, 20);
+            ScoreLabel.TabIndex = 8;
+            ScoreLabel.Text = "Red : 0 - 0 : Blue";
             // 
             // FinishButton
             // 
@@ -286,14 +297,14 @@
             MainPanel.Size = new Size(990, 436);
             MainPanel.TabIndex = 6;
             // 
-            // ScoreLabel
+            // ArretLabel
             // 
-            ScoreLabel.AutoSize = true;
-            ScoreLabel.Location = new Point(373, 163);
-            ScoreLabel.Name = "ScoreLabel";
-            ScoreLabel.Size = new Size(116, 20);
-            ScoreLabel.TabIndex = 8;
-            ScoreLabel.Text = "Red : 0 - 0 : Blue";
+            ArretLabel.AutoSize = true;
+            ArretLabel.Location = new Point(338, 183);
+            ArretLabel.Name = "ArretLabel";
+            ArretLabel.Size = new Size(190, 20);
+            ArretLabel.TabIndex = 9;
+            ArretLabel.Text = "Arret Red : 0 - 0 : Arret Blue";
             // 
             // Form1
             // 
@@ -341,5 +352,6 @@
         private Button ButtonFinish;
         private Button FinishButton;
         private Label ScoreLabel;
+        private Label ArretLabel;
     }
 }
